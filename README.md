@@ -1,2 +1,2 @@
-# skylark-utils-template
+# skylark-utils-templating
 The skylark template engine library.

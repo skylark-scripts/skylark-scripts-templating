@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.js"],"names":["define","templating"],"mappings":";;;;;;;AAAAA,QACI,eACA,eACF,SAASC,GACV,MAAOA","file":"../main.js","sourcesContent":["define([\r\n   \t\"./templating\",\r\n   \t\"./Templater\"\r\n],function(templating){\r\n\treturn templating;\r\n})"]}
