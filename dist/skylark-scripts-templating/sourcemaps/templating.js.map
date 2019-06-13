@@ -1,0 +1,1 @@
+{"version":3,"sources":["templating.js"],"names":["define","skylark","attach","helpers"],"mappings":";;;;;;;AAAAA,QACE,yBACA,SAASC,GACV,OAAOA,EAAQC,OAAO,sBACrBC","file":"../templating.js","sourcesContent":["define([\r\n  \"skylark-langx/skylark\"\r\n],function(skylark){\r\n\treturn skylark.attach(\"scripts.templating\", {\r\n\t\thelpers : {}\r\n\t});\r\n});"]}

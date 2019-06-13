@@ -1,5 +1,5 @@
 {
-  "name": "skylark-utils-templating",
+  "name": "skylark-scripts-templating",
   "version": "0.9.1",
   "description": "The skylark template engine library.",
   "main": "-",
@@ -10,7 +10,7 @@
   "homepage": "www.skylarkjs.org",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skylarkjs/skylark-utils-templating.git"
+    "url": "git+https://github.com/skylark-scripts/skylark-scripts-templating.git"
   },
   "keywords": [
     "skylark",
