@@ -1,7 +1,7 @@
 /**
- * skylark-scripts-templating - The skylark template engine library.
+ * skylark-parsers-templating - The skylark template engine library.
  * @author Hudaokeji Co.,Ltd
- * @version v0.9.1
+ * @version v0.9.0
  * @link www.skylarkjs.org
  * @license MIT
  */
@@ -86,7 +86,7 @@
 
 })(function(define,require) {
 
-define('skylark-langx/_attach',[],function(){
+define('skylark-langx-ns/_attach',[],function(){
     return  function attach(obj1,path,obj2) {
         if (typeof path == "string") {
             path = path.split(".");//[path]
@@ -104,7 +104,7 @@ define('skylark-langx/_attach',[],function(){
         return ns[name] = obj2;
     }
 });
-define('skylark-langx/skylark',[
+define('skylark-langx-ns/ns',[
     "./_attach"
 ], function(_attach) {
     var skylark = {
@@ -115,15 +115,29 @@ define('skylark-langx/skylark',[
     return skylark;
 });
 
-define('skylark-scripts-templating/templating',[
+define('skylark-langx-ns/main',[
+	"./ns"
+],function(skylark){
+	return skylark;
+});
+define('skylark-langx-ns', ['skylark-langx-ns/main'], function (main) { return main; });
+
+define('skylark-langx/skylark',[
+    "skylark-langx-ns"
+], function(ns) {
+	return ns;
+});
+
+define('skylark-parsers-templating/templating',[
   "skylark-langx/skylark"
 ],function(skylark){
 	return skylark.attach("scripts.templating", {
 		helpers : {}
 	});
 });
-define('skylark-langx/types',[
-],function(){
+define('skylark-langx-types/types',[
+    "skylark-langx-ns"
+],function(skylark){
     var toString = {}.toString;
     
     var type = (function() {
@@ -303,7 +317,7 @@ define('skylark-langx/types',[
       return value === undefined
     }
 
-    return {
+    return skylark.attach("langx.types",{
 
         isArray: isArray,
 
@@ -344,12 +358,25 @@ define('skylark-langx/types',[
         isWindow: isWindow,
 
         type: type
-    };
+    });
 
 });
-define('skylark-langx/numbers',[
+define('skylark-langx-types/main',[
 	"./types"
 ],function(types){
+	return types;
+});
+define('skylark-langx-types', ['skylark-langx-types/main'], function (main) { return main; });
+
+define('skylark-langx/types',[
+    "skylark-langx-types"
+],function(types){
+    return types;
+});
+define('skylark-langx-numbers/numbers',[
+    "skylark-langx-ns",
+    "skylark-langx-types"
+],function(skylark,types){
 	var isObject = types.isObject,
 		isSymbol = types.isSymbol;
 
@@ -486,17 +513,25 @@ define('skylark-langx/numbers',[
 	    : (reIsBadHex.test(value) ? NAN : +value);
 	}
 
-	return  {
+	return  skylark.attach("langx.numbers",{
 		toFinite : toFinite,
 		toNumber : toNumber,
 		toInteger : toInteger
-	}
+	});
 });
-define('skylark-langx/objects',[
-    "./_attach",
-	"./types",
-    "./numbers"
-],function(_attach,types,numbers){
+define('skylark-langx-numbers/main',[
+	"./numbers"
+],function(numbers){
+	return numbers;
+});
+define('skylark-langx-numbers', ['skylark-langx-numbers/main'], function (main) { return main; });
+
+define('skylark-langx-objects/objects',[
+    "skylark-langx-ns/ns",
+    "skylark-langx-ns/_attach",
+	"skylark-langx-types",
+    "skylark-langx-numbers"
+],function(skylark,_attach,types,numbers){
 	var hasOwnProperty = Object.prototype.hasOwnProperty,
         slice = Array.prototype.slice,
         isBoolean = types.isBoolean,
@@ -933,7 +968,7 @@ define('skylark-langx/objects',[
 
     }
 
-    return {
+    return skylark.attach("langx.objects",{
         allKeys: allKeys,
 
         attach : _attach,
@@ -969,14 +1004,27 @@ define('skylark-langx/objects',[
         safeMixin: safeMixin,
 
         values: values
-    };
-
+    });
 
 
 });
-define('skylark-langx/arrays',[
-	"./types"
-],function(types,objects){
+define('skylark-langx-objects/main',[
+	"./objects"
+],function(objects){
+	return objects;
+});
+define('skylark-langx-objects', ['skylark-langx-objects/main'], function (main) { return main; });
+
+define('skylark-langx/objects',[
+    "skylark-langx-objects"
+],function(objects){
+    return objects;
+});
+define('skylark-langx-arrays/arrays',[
+  "skylark-langx-ns/ns",
+  "skylark-langx-types",
+  "skylark-langx-objects"
+],function(skylark,types,objects){
 	var filter = Array.prototype.filter,
 		isArrayLike = types.isArrayLike;
 
@@ -1070,7 +1118,7 @@ define('skylark-langx/arrays',[
     function grep(array, callback) {
         var out = [];
 
-        each(array, function(i, item) {
+        objects.each(array, function(i, item) {
             if (callback(item, i)) {
                 out.push(item);
             }
@@ -1161,7 +1209,7 @@ define('skylark-langx/arrays',[
         })
     }
 
-    return {
+    return skylark.attach("langx.arrays",{
         baseFindIndex: baseFindIndex,
 
         baseIndexOf : baseIndexOf,
@@ -1180,6 +1228,8 @@ define('skylark-langx/arrays',[
         
         flatten: flatten,
 
+        grep: grep,
+
         inArray: inArray,
 
         makeArray: makeArray,
@@ -1194,13 +1244,21 @@ define('skylark-langx/arrays',[
 
         uniq : uniq
 
-    }
+    });
 });
-define('skylark-langx/klass',[
-    "./arrays",
-    "./objects",
-    "./types"
-],function(arrays,objects,types){
+define('skylark-langx-arrays/main',[
+	"./arrays"
+],function(arrays){
+	return arrays;
+});
+define('skylark-langx-arrays', ['skylark-langx-arrays/main'], function (main) { return main; });
+
+define('skylark-langx-klass/klass',[
+  "skylark-langx-ns/ns",
+  "skylark-langx-types",
+  "skylark-langx-objects",
+  "skylark-langx-arrays",
+],function(skylark,types,objects,arrays){
     var uniq = arrays.uniq,
         has = objects.has,
         mixin = objects.mixin,
@@ -1444,14 +1502,22 @@ let longEar = klass({
 
     var createClass = f1();
 
-    return createClass;
+    return skylark.attach("langx.klass",createClass);
 });
-define('skylark-langx/Evented',[
-    "./klass",
-    "./arrays",
-    "./objects",
-    "./types"
-],function(klass,arrays,objects,types){
+define('skylark-langx-klass/main',[
+	"./klass"
+],function(klass){
+	return klass;
+});
+define('skylark-langx-klass', ['skylark-langx-klass/main'], function (main) { return main; });
+
+define('skylark-langx-emitter/Evented',[
+  "skylark-langx-ns/ns",
+  "skylark-langx-types",
+  "skylark-langx-objects",
+  "skylark-langx-arrays",
+  "skylark-langx-klass"
+],function(skylark,types,objects,arrays,klass){
     var slice = Array.prototype.slice,
         compact = arrays.compact,
         isDefined = types.isDefined,
@@ -1725,10 +1791,22 @@ define('skylark-langx/Evented',[
         }
     });
 
-    return Evented;
+    return skylark.attach("langx.Evented",Evented);
 
 });
-define('skylark-scripts-templating/helpers/each',[
+define('skylark-langx-emitter/main',[
+	"./Evented"
+],function(Evented){
+	return Evented;
+});
+define('skylark-langx-emitter', ['skylark-langx-emitter/main'], function (main) { return main; });
+
+define('skylark-langx/Evented',[
+    "skylark-langx-emitter"
+],function(Evented){
+    return Evented;
+});
+define('skylark-parsers-templating/helpers/each',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1767,7 +1845,7 @@ define('skylark-scripts-templating/helpers/each',[
     }
   };
 });
-define('skylark-scripts-templating/helpers/if',[
+define('skylark-parsers-templating/helpers/if',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1783,7 +1861,7 @@ define('skylark-scripts-templating/helpers/if',[
       }
     };
 });
-define('skylark-scripts-templating/helpers/join',[
+define('skylark-parsers-templating/helpers/join',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1795,7 +1873,7 @@ define('skylark-scripts-templating/helpers/join',[
     return items.join(options.hash.delimiter);
   };
 });
-define('skylark-scripts-templating/helpers/js',[
+define('skylark-parsers-templating/helpers/js',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1810,7 +1888,7 @@ define('skylark-scripts-templating/helpers/js',[
     return eval.call(this, func).call(this);
   };
 });
-define('skylark-scripts-templating/helpers/js_compare',[
+define('skylark-parsers-templating/helpers/js_compare',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1831,7 +1909,7 @@ define('skylark-scripts-templating/helpers/js_compare',[
   };
 
 });
-define('skylark-scripts-templating/helpers/partial',[
+define('skylark-parsers-templating/helpers/partial',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1851,7 +1929,7 @@ define('skylark-scripts-templating/helpers/partial',[
     return p.compiled(ctx, options.data, options.root);
   };
 });
-define('skylark-scripts-templating/helpers/unless',[
+define('skylark-parsers-templating/helpers/unless',[
   "skylark-langx/types",
   "../templating"
 ],function(types,templating){
@@ -1867,7 +1945,7 @@ define('skylark-scripts-templating/helpers/unless',[
     }
   };
 });
-define('skylark-scripts-templating/helpers/with',[
+define('skylark-parsers-templating/helpers/with',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -1879,7 +1957,7 @@ define('skylark-scripts-templating/helpers/with',[
     return options.fn(context);
   };
 });
-define('skylark-scripts-templating/Templater',[
+define('skylark-parsers-templating/Templater',[
   "skylark-langx/types",
   "skylark-langx/objects",
   "skylark-langx/Evented",
@@ -2289,13 +2367,13 @@ define('skylark-scripts-templating/Templater',[
 });
 
 
-define('skylark-scripts-templating/main',[
+define('skylark-parsers-templating/main',[
    	"./templating",
    	"./Templater"
 ],function(templating){
 	return templating;
 });
-define('skylark-scripts-templating', ['skylark-scripts-templating/main'], function (main) { return main; });
+define('skylark-parsers-templating', ['skylark-parsers-templating/main'], function (main) { return main; });
 
 
 },this);

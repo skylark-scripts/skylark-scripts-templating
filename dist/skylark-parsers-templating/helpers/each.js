@@ -1,7 +1,7 @@
 /**
- * skylark-scripts-templating - The skylark template engine library.
+ * skylark-parsers-templating - The skylark template engine library.
  * @author Hudaokeji Co.,Ltd
- * @version v0.9.1
+ * @version v0.9.0
  * @link www.skylarkjs.org
  * @license MIT
  */

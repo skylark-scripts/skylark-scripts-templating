@@ -1,6 +1,6 @@
 {
   "name": "skylark-parsers-templating",
-  "version": "0.9.1",
+  "version": "0.9.0",
   "description": "The skylark template engine library.",
   "main": "-",
   "scripts": {
@@ -25,7 +25,7 @@
   "bugs": "https://github.com/skylarkjs/skylark/issues",
   "dependencies": {},
   "devDependencies": {
-    "skylark-langx": "https://github.com/skylarklangx/skylark-langx#master"
+    "skylark-langx": "git+https://github.com/skylarklangx/skylark-langx.git#master"
   },
   "engines": {
     "node": ">=0.8.0"
