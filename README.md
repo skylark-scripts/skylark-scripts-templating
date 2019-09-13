@@ -1,2 +1,2 @@
-# skylark-scripts-templating
+# skylark-parsers-templating
 The skylark template engine library.
