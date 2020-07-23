@@ -1,5 +1,5 @@
 {
-  "name": "skylark-parsers-templating",
+  "name": "skylark-scripts-templating",
   "version": "0.9.0",
   "description": "The skylark template engine library.",
   "main": "-",
@@ -10,7 +10,7 @@
   "homepage": "www.skylarkjs.org",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skylark-parsers/skylark-parsers-templating.git"
+    "url": "git+https://github.com/skylark-scripts/skylark-scripts-templating.git"
   },
   "keywords": [
     "skylark",
@@ -24,8 +24,8 @@
   "license": "MIT",
   "bugs": "https://github.com/skylarkjs/skylark/issues",
   "dependencies": {},
-  "devDependencies": {
-    "skylark-langx": "git+https://github.com/skylarklangx/skylark-langx.git#master"
+  "dependencies": {
+    "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git#master"
   },
   "engines": {
     "node": ">=0.8.0"

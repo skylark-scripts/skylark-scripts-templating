@@ -1,5 +1,5 @@
 /**
- * skylark-parsers-templating - The skylark template engine library.
+ * skylark-scripts-templating - The skylark template engine library.
  * @author Hudaokeji Co.,Ltd
  * @version v0.9.0
  * @link www.skylarkjs.org
@@ -75,7 +75,7 @@
   factory(define,require);
 
   if (!isAmd) {
-    var skylarkjs = require("skylark-langx/skylark");
+    var skylarkjs = require("skylark-langx-ns");
 
     if (isCmd) {
       module.exports = skylarkjs;
@@ -86,14 +86,14 @@
 
 })(function(define,require) {
 
-define('skylark-parsers-templating/templating',[
+define('skylark-scripts-templating/templating',[
   "skylark-langx/skylark"
 ],function(skylark){
 	return skylark.attach("scripts.templating", {
 		helpers : {}
 	});
 });
-define('skylark-parsers-templating/helpers/each',[
+define('skylark-scripts-templating/helpers/each',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -132,7 +132,7 @@ define('skylark-parsers-templating/helpers/each',[
     }
   };
 });
-define('skylark-parsers-templating/helpers/if',[
+define('skylark-scripts-templating/helpers/if',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -148,7 +148,7 @@ define('skylark-parsers-templating/helpers/if',[
       }
     };
 });
-define('skylark-parsers-templating/helpers/join',[
+define('skylark-scripts-templating/helpers/join',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -160,7 +160,7 @@ define('skylark-parsers-templating/helpers/join',[
     return items.join(options.hash.delimiter);
   };
 });
-define('skylark-parsers-templating/helpers/js',[
+define('skylark-scripts-templating/helpers/js',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -175,7 +175,7 @@ define('skylark-parsers-templating/helpers/js',[
     return eval.call(this, func).call(this);
   };
 });
-define('skylark-parsers-templating/helpers/js_compare',[
+define('skylark-scripts-templating/helpers/js_compare',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -196,7 +196,7 @@ define('skylark-parsers-templating/helpers/js_compare',[
   };
 
 });
-define('skylark-parsers-templating/helpers/partial',[
+define('skylark-scripts-templating/helpers/partial',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -216,7 +216,7 @@ define('skylark-parsers-templating/helpers/partial',[
     return p.compiled(ctx, options.data, options.root);
   };
 });
-define('skylark-parsers-templating/helpers/unless',[
+define('skylark-scripts-templating/helpers/unless',[
   "skylark-langx/types",
   "../templating"
 ],function(types,templating){
@@ -232,7 +232,7 @@ define('skylark-parsers-templating/helpers/unless',[
     }
   };
 });
-define('skylark-parsers-templating/helpers/with',[
+define('skylark-scripts-templating/helpers/with',[
 	"skylark-langx/types",
 	"../templating"
 ],function(types,templating){
@@ -244,7 +244,7 @@ define('skylark-parsers-templating/helpers/with',[
     return options.fn(context);
   };
 });
-define('skylark-parsers-templating/Templater',[
+define('skylark-scripts-templating/Templater',[
   "skylark-langx/types",
   "skylark-langx/objects",
   "skylark-langx/Evented",
@@ -654,14 +654,14 @@ define('skylark-parsers-templating/Templater',[
 });
 
 
-define('skylark-parsers-templating/main',[
+define('skylark-scripts-templating/main',[
    	"./templating",
    	"./Templater"
 ],function(templating){
 	return templating;
 });
-define('skylark-parsers-templating', ['skylark-parsers-templating/main'], function (main) { return main; });
+define('skylark-scripts-templating', ['skylark-scripts-templating/main'], function (main) { return main; });
 
 
 },this);
-//# sourceMappingURL=sourcemaps/skylark-parsers-templating.js.map
+//# sourceMappingURL=sourcemaps/skylark-scripts-templating.js.map
