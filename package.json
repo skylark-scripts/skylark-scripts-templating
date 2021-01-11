@@ -1,16 +1,16 @@
 {
-  "name": "skylark-scripts-templating",
+  "name": "skylark-template7",
   "version": "0.9.0",
-  "description": "The skylark template engine library.",
+  "description": "A version of template7.js that ported to running on skylarkjs.",
   "main": "-",
   "scripts": {
-    "build": "sbundle build .",
+    "build": "slib build .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "www.skylarkjs.org",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skylark-scripts/skylark-scripts-templating.git"
+    "url": "git+https://github.com/skylark-integration/skylark-template7.git"
   },
   "keywords": [
     "skylark",
@@ -26,6 +26,27 @@
   "dependencies": {},
   "dependencies": {
     "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git#master"
+  },
+  "skylarkjs": {
+    "directories": {
+      "dependencies": "./node_modules"
+    },
+    "secondaries": {},
+    "build": {
+      "prepare": {
+        "texttojs": [
+          "html",
+          "json",
+          "css"
+        ],
+        "jsxtojs": false,
+        "es6toamd": false,
+        "cjstoamd": false
+      },
+      "bundles": {
+        "all": true
+      }
+    }
   },
   "engines": {
     "node": ">=0.8.0"

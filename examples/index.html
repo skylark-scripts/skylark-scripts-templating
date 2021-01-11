@@ -205,13 +205,13 @@
     </script>
 
     <!-- Path to Template7 lib -->
-<script type="text/javascript" src="../dist/uncompressed/skylark-utils-templating-all.js"></script>
+<script type="text/javascript" src="../dist/uncompressed/skylark-template7-all.js"></script>
     <!-- JSON with demo data-->
     <script src="tv-show.js"></script>
 
     <script>
         // Helper to format dates
-        var templating = skylarkjs.templating;
+        var templating = skylarkjs.intg.template7;
         templating.registerHelper('formatDate', function (date) {
             var months = ('January February March April May June July August September October November December').split(' ');
             var _date = new Date(date);
